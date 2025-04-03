@@ -1,12 +1,45 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+
+import React, { useState } from 'react';
+import Navbar from '@/components/Navbar';
+import SocialFeed from '@/components/SocialFeed';
+import SwipeRecommendation from '@/components/SwipeRecommendation';
+import ProfileView from '@/components/ProfileView';
+import SearchView from '@/components/SearchView';
+import PointsView from '@/components/PointsView';
 
 const Index = () => {
+  const [activeTab, setActiveTab] = useState('home');
+
+  const renderContent = () => {
+    switch (activeTab) {
+      case 'home':
+        return <SocialFeed />;
+      case 'search':
+        return <SearchView />;
+      case 'post':
+        // For now, we'll just show the points view when post is clicked
+        // In a real app, this would open a camera/upload interface
+        return <PointsView />;
+      case 'recommendations':
+        return <SwipeRecommendation />;
+      case 'profile':
+        return <ProfileView />;
+      default:
+        return <SocialFeed />;
+    }
+  };
+
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4">Welcome to Your Blank App</h1>
-        <p className="text-xl text-gray-600">Start building your amazing project here!</p>
-      </div>
+    <div className="min-h-screen bg-gray-50">
+      <header className="fixed top-0 left-0 right-0 bg-white border-b border-gray-200 px-4 py-3 z-10">
+        <h1 className="text-xl font-bold text-center text-ktoon-primary">クトゥーンプラス</h1>
+      </header>
+      
+      <main className="pt-14">
+        {renderContent()}
+      </main>
+      
+      <Navbar activeTab={activeTab} onTabChange={setActiveTab} />
     </div>
   );
 };
