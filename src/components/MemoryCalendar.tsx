@@ -10,6 +10,9 @@ import { CalendarIcon, Plus, Trash2 } from 'lucide-react';
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { cn } from "@/lib/utils";
 
+// Define the exact types for memory types
+type MemoryType = 'first' | 'event' | 'other';
+
 // Sample data - in a real app this would come from a database
 const initialMemories = [
   {
@@ -17,14 +20,14 @@ const initialMemories = [
     title: 'ファーストシューズ',
     date: '2023-04-15',
     description: '初めて買った靴。お気に入りのブルー。',
-    type: 'first'
+    type: 'first' as MemoryType
   },
   {
     id: 2,
     title: '入園式の靴',
     date: '2024-04-01',
     description: '幼稚園の入園式で履いた靴。',
-    type: 'event'
+    type: 'event' as MemoryType
   },
 ];
 
@@ -33,7 +36,7 @@ interface ShoeMemory {
   title: string;
   date: string;
   description: string;
-  type: 'first' | 'event' | 'other';
+  type: MemoryType;
 }
 
 interface MemoryCardProps {
@@ -81,7 +84,7 @@ const NewMemoryForm: React.FC<NewMemoryFormProps> = ({ onSave, onCancel }) => {
   const [title, setTitle] = useState('');
   const [date, setDate] = useState<Date | undefined>(new Date());
   const [description, setDescription] = useState('');
-  const [type, setType] = useState<'first' | 'event' | 'other'>('first');
+  const [type, setType] = useState<MemoryType>('first');
 
   const handleSave = () => {
     if (!title || !date) return;
@@ -256,16 +259,9 @@ const MemoryCalendar: React.FC = () => {
               }
             }}
             modifiersStyles={{
-              customModifier: (date) => {
-                const className = getDayClassNames(date);
-                if (className) {
-                  return { 
-                    fontWeight: 'bold',
-                    backgroundColor: className.includes('bg-ktoon-primary') ? '#4F46E5' :
-                                     className.includes('bg-ktoon-accent') ? '#F43F5E' : '#A5B4FC'
-                  };
-                }
-                return {};
+              customModifier: {
+                fontWeight: 'bold',
+                backgroundColor: '#4F46E5'
               }
             }}
           />

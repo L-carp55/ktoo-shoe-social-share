@@ -6,7 +6,7 @@ import { Progress } from '@/components/ui/progress';
 const PointsView: React.FC = () => {
   const userPoints = {
     current: 2450,
-    nextLevel: 3000,
+    targetPoints: 3000,  // Changed from nextLevel to targetPoints to avoid duplicate keys
     level: 'シルバー',
     nextLevel: 'ゴールド',
     streak: 5
@@ -15,7 +15,7 @@ const PointsView: React.FC = () => {
   const pointHistory = [
     { id: '1', title: 'ログインボーナス', date: '今日', points: 50, type: 'earned' },
     { id: '2', title: '写真投稿ボーナス', date: '昨日', points: 100, type: 'earned' },
-    { id: '3', title: 'シューズレンタル', date: '3日前', points: -500, type: 'spent' },
+    { id: '3', title: 'シューズレンタル', date: '3日前', points: 500, type: 'spent' },  // Removed minus sign
     { id: '4', title: 'レビュー投稿ボーナス', date: '先週', points: 150, type: 'earned' },
     { id: '5', title: '友達紹介ボーナス', date: '先週', points: 200, type: 'earned' }
   ];
@@ -37,12 +37,12 @@ const PointsView: React.FC = () => {
         </div>
         
         <div className="mb-1">
-          <Progress value={(userPoints.current / userPoints.nextLevel) * 100} />
+          <Progress value={(userPoints.current / userPoints.targetPoints) * 100} />
         </div>
         
         <div className="flex justify-between text-sm text-gray-600">
           <span>{userPoints.level}会員</span>
-          <span>{userPoints.nextLevel}会員まであと{userPoints.nextLevel - userPoints.current}ポイント</span>
+          <span>{userPoints.nextLevel}会員まであと{userPoints.targetPoints - userPoints.current}ポイント</span>
         </div>
       </div>
       
