@@ -6,8 +6,6 @@ import SwipeRecommendation from '@/components/SwipeRecommendation';
 import ProfileView from '@/components/ProfileView';
 import SearchView from '@/components/SearchView';
 import PointsView from '@/components/PointsView';
-import GrowthTracker from '@/components/GrowthTracker';
-import MemoryCalendar from '@/components/MemoryCalendar';
 
 const Index = () => {
   const [activeTab, setActiveTab] = useState('home');
@@ -26,10 +24,6 @@ const Index = () => {
         return <SwipeRecommendation />;
       case 'profile':
         return <ProfileView />;
-      case 'growth':
-        return <GrowthTracker />;
-      case 'memories':
-        return <MemoryCalendar />;
       default:
         return <SocialFeed />;
     }
